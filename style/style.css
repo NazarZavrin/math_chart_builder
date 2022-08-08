@@ -1,0 +1,193 @@
+@charset "UTF-8";
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+:focus, :active {
+  outline: none;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+nav, footer, header, aside {
+  display: block;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+html {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  min-height: 100%;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+}
+
+.wrapper {
+  width: 100%;
+  flex: 1 1 100%;
+  background-color: #c1c2c3;
+  /*
+  font-size: calc(16px + (24 - 16) * ((100vw - 320px) / (1200 - 320)));
+  ↑ На экране шириной 320 пикселей шрифт имеет размер 16 пикселей, 
+  а на экране шириной 1200 пикселей – размер 24 пикселя. */
+}
+
+.chart-blocks {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.chart-block {
+  width: 100vw;
+  height: 48vh;
+  margin: 1vh 0;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.chart-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+  height: 100%;
+}
+.chart-buttons > div {
+  width: 100%;
+  height: 25%;
+  border: 3px solid gray;
+}
+
+.canvas {
+  width: 80%;
+  height: 100%;
+  border: 3px solid black;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+  height: 100%;
+}
+.action-buttons > div {
+  width: 100%;
+  height: 25%;
+  border: 3px solid royalblue;
+}
+.action-buttons > .remove-chart-btn {
+  background-color: red;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.action-buttons > .remove-chart-btn > div {
+  position: absolute;
+  width: 75%;
+  height: 10%;
+  background-color: #ececec;
+  transform: rotateZ(45deg);
+}
+.action-buttons > .remove-chart-btn > div:last-of-type {
+  transform: rotateZ(135deg);
+}
+
+.create-chart-btn {
+  width: 100%;
+  height: 25vh;
+  background-color: dodgerblue;
+  border: 1px dashed royalblue;
+  border-width: calc(10px + 10 * (100vw - 320px) / 880);
+  border-radius: calc(10px + 10 * (100vw - 320px) / 880);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.create-chart-btn > div {
+  position: absolute;
+  width: 6vh;
+  height: 16vh;
+  background-color: #ececec;
+}
+.create-chart-btn > div:last-of-type {
+  transform: rotateZ(90deg);
+}
+
+@media (min-width: 992px) {
+  /* Стили CSS для ширины от 768px до 992px */
+  /* Устроства с маленьким экраном (планшеты) */
+  .chart-blocks {
+    grid-template-columns: 1fr 1fr;
+  }
+  .chart-block {
+    width: 48vw;
+  }
+}
+@media (max-width: 767px) {
+  /* Стили CSS для ширины до 768px */
+  /* Устройства с очень маленьким экраном (смартфоны) */
+}

@@ -1,0 +1,127 @@
+@import "./null-style.scss";
+
+html {
+  height: max-content;
+  min-height: 100%;
+}
+body{
+  display: flex;
+  min-height: 100vh;
+}
+.wrapper {
+  width: 100%;
+  flex: 1 1 100%;
+  background-color: #c1c2c3;
+  /*
+  font-size: calc(16px + (24 - 16) * ((100vw - 320px) / (1200 - 320)));
+  ↑ На экране шириной 320 пикселей шрифт имеет размер 16 пикселей, 
+  а на экране шириной 1200 пикселей – размер 24 пикселя. */
+}
+
+.chart-blocks {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  // grid-auto-rows: 50vh;
+  justify-items: center;
+  align-items: center;
+}
+
+.chart-block{
+  width: 100vw;
+  height: 48vh;
+  margin: 1vh 0;
+  background-color: white;
+  // border: 1px solid #000;
+  display: flex;
+  flex-direction: row;
+}
+
+.chart-buttons{
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+  height: 100%;
+  & > div {
+    width: 100%;
+    height: 25%;
+    border: 3px solid gray;
+  }
+}
+
+.canvas {
+  width: 80%;
+  height: 100%;
+  border: 3px solid black;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+  height: 100%;
+  & > div {
+    width: 100%;
+    height: 25%;
+    border: 3px solid royalblue;
+  }
+  & > .remove-chart-btn {
+    background-color: red;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > div{
+      position: absolute;
+      width: 75%;
+      height: 10%;
+      background-color: #ececec;
+      transform: rotateZ(45deg);
+    }
+    & > div:last-of-type{
+      transform: rotateZ(135deg);
+    }
+  }
+}
+
+.create-chart-btn {
+  width: 100%;
+  height: 25vh;
+  background-color: dodgerblue;
+  border: 1px dashed royalblue;
+  border-width: calc(10px + (20 - 10) * ((100vw - 320px) / (1200 - 320)));
+  border-radius: calc(10px + (20 - 10) * ((100vw - 320px) / (1200 - 320)));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > div{
+    position: absolute;
+    width: 6vh;
+    height: 16vh;
+    background-color: #ececec;
+  }
+  & > div:last-of-type{
+    transform: rotateZ(90deg);
+  }
+}
+
+// @media (max-width: 1200px) {
+//   /* Стили CSS для ширины от 992px до 1200px */
+//   /* Устройства со средним экраном (ноутбуки и компьютеры)*/
+  
+// }
+@media (min-width: 992px) {
+  /* Стили CSS для ширины от 768px до 992px */
+  /* Устроства с маленьким экраном (планшеты) */
+  .chart-blocks {
+    grid-template-columns: 1fr 1fr;
+  }
+  .chart-block{
+    width: 48vw;
+  }
+}
+@media (max-width: 767px) {
+  /* Стили CSS для ширины до 768px */
+  /* Устройства с очень маленьким экраном (смартфоны) */
+  
+}
