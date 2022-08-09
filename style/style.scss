@@ -7,8 +7,10 @@ html {
 body{
   display: flex;
   min-height: 100vh;
+  font: 20px "Calibri", sans-serif;
 }
 .wrapper {
+  position: relative;
   width: 100%;
   flex: 1 1 100%;
   background-color: #c1c2c3;
@@ -35,6 +37,9 @@ body{
   // border: 1px solid #000;
   display: flex;
   flex-direction: row;
+  transition-property: transform;
+  transition-duration: 0.75s;
+  transition-timing-function: ease-in;
 }
 
 .chart-buttons{
@@ -65,7 +70,7 @@ body{
     height: 25%;
     border: 3px solid royalblue;
   }
-  & > .remove-chart-btn {
+  & > .remove-chart-block-btn {
     background-color: red;
     position: relative;
     display: flex;
@@ -73,7 +78,7 @@ body{
     align-items: center;
     & > div{
       position: absolute;
-      width: 75%;
+      width: 60%;
       height: 10%;
       background-color: #ececec;
       transform: rotateZ(45deg);
@@ -84,7 +89,7 @@ body{
   }
 }
 
-.create-chart-btn {
+.create-chart-block-btn {
   width: 100%;
   height: 25vh;
   background-color: dodgerblue;
@@ -124,4 +129,147 @@ body{
   /* Стили CSS для ширины до 768px */
   /* Устройства с очень маленьким экраном (смартфоны) */
   
+}
+.input-data-wrapper{
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  transform: translateY(-150%);
+  transition: transform 0.75s ease-in;
+  &.active{
+    transform: translateY(0%);
+    transition: transform 0.75s ease-in;
+  }
+}
+.input-data-block {
+  position: absolute;
+  top: 1vh; left: 1vw;
+  width: 98vw;
+  height: 98vh;
+  background-color: royalblue;
+  border: 5px solid blue;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  // justify-content: space-between;
+  // align-items: center;
+  font-size: calc(16px + (28 - 16) * ((100vw - 320px) / (1200 - 320)));
+}
+.input-data-block__options {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex: 0 1 auto;
+  color: white;
+  & > div {
+    width: 50%;
+    background-color: #3636ff;
+    border: 3px solid blue;
+    text-align: center;
+  }
+}
+.input-data-block__input {
+  width: 100%;
+  flex: 1 1 auto;
+}
+.input-function{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-function__output {
+  display: block;
+  height: max-content;
+  width: 95%;
+  font-size: 30px;
+  background-color: #f1f2f3;
+  // color: black;
+  // color: transparent;
+  text-align: center;
+}
+.input-function__keyboard {
+  width: 100%;
+  border: 3px solid blue;
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: white;
+  & > section > div {
+      width: 100%;
+      background-color: #f1f2f3;
+      color: black;
+      text-align: center;
+      border: 1px solid #000;
+      font-size: 30px;
+  }
+  & > section:nth-of-type(1) {
+    display: flex;
+    flex-direction: column;
+    width: 8%;
+    & > div {
+      height: max-content;
+    }
+  }
+  & > section:nth-of-type(3) {
+    display: grid;
+    grid-template: repeat(4, max-content) / repeat(5, 1fr);
+    width: 40%;
+  }
+  & > section:nth-of-type(2) {
+    display: flex;
+    flex-direction: column;
+    width: 12%;
+    & > div {
+      height: max-content;
+    }
+  }
+  & > section:nth-of-type(4) {
+    display: grid;
+    grid-template: repeat(4, max-content) / repeat(3, 1fr);
+    width: 35%;
+    & > div {
+      height: max-content;
+    }
+  }
+}
+
+.input-function__buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+}
+.create-chart {
+  width: 35%;
+  background-color: limegreen;
+  text-align: center;
+  border: 3px solid forestgreen;
+  border-radius: 10px;
+}
+.remove-chart {
+  width: 35%;
+  background-color: red;
+  text-align: center;
+  border: 3px solid maroon;
+  border-radius: 10px;
+}
+.cancel-changes {
+  width: 20%;
+  background-color: gray;
+  text-align: center;
+  border: 3px solid slategray;
+  border-radius: 10px;
+}
+
+.input-data {
+  display: none;
 }

@@ -2,9 +2,10 @@
 
 import getFunction from "./getFunction.js";
 import "./addEventListenerN and removeEventListenerN.js";
-console.log(typeof addEventListenerN);
+import getChartBlockNum from "./getChartBlockNum.js";
 
-let wrapper = document.querySelector(".wrapper");
+
+// let wrapper = document.querySelector(".wrapper");
 let chartBlocksContainer = document.querySelector(".chart-blocks");
 
 // let chartButtons = chartBlocksContainer.getElementsByClassName("chart-buttons");
@@ -12,7 +13,21 @@ let chartBlocksContainer = document.querySelector(".chart-blocks");
 
 // let charts = document.getElementsByClassName("chart");
 
-let createChartBlockBtn = document.querySelector(".create-chart-btn");
+const inputDataWrapper = document.querySelector(".input-data-wrapper");
+
+let inputFuncKeyboard = document.getElementsByClassName("input-function__keyboard")[0];
+let inputFuncOutput = document.getElementsByClassName("input-function__output")[0];
+inputFuncOutput.style.color = "transparent";
+// inputDataBlock.style.display = "block";
+/*const createChartBtn = document.querySelector(".create-chart");
+const removeChartBtn = document.querySelector(".remove-chart");
+const cancleChangesBtn = document.querySelector(".cancel-changes");*/
+
+
+
+let inputFuncButtons = document.querySelector(".input-function__buttons");
+
+let createChartBlockBtn = document.querySelector(".create-chart-block-btn");
 let chartBlockHTML = `
             <div class='chart-buttons'>
                 <div></div>
@@ -20,7 +35,7 @@ let chartBlockHTML = `
             </div>
             <div class='canvas'></div>
             <div class='action-buttons'>
-                <div class='remove-chart-btn'>
+                <div class='remove-chart-block-btn'>
                     <div></div><div></div>
                 </div>
                 <div class='zoom-in-btn'></div>
@@ -34,46 +49,39 @@ let state = {
 
 class Chart {
     constructor() {
-        this.func = inputFunction();
-        
+        // this.func = inputData();
         let chartBlockElement = document.createElement("div");
         chartBlockElement.classList.add("chart-block");
-        
         chartBlockElement.insertAdjacentHTML("beforeend", chartBlockHTML);
         chartBlocksContainer.append(chartBlockElement);
-        console.log(chartBlockElement);
+
+        let chartButtons = chartBlockElement.getElementsByClassName("chart-buttons")[0];
+        chartButtons.addEventListener("pointerup", event => {
+            inputData(event.target.closest(".chart-block"));
+        })
         let actionButtons = chartBlockElement.getElementsByClassName("action-buttons")[0];
         this.removeActiveButtons = actionButtons.addEventListenerN("pointerup", event => {
-            if (event.target.closest(".remove-chart-btn")){
-                console.log(event.target.closest(".remove-chart-btn"));
-                this.removeChart(event.target.closest(".remove-chart-btn"));
+            if (event.target.closest(".remove-chart-block-btn")){
+                this.removeChart(event);
             }
         })
-        chartBlockElement.getElementsByClassName("canvas")[0].textContent = String(Date.now()).slice(-3);
+        chartBlockElement.querySelector(".canvas").textContent = String(Date.now()).slice(-3);
         state.chartsBlocks.push(this);
-        // console.log(chartBlocksContainer.children);
+        // console.log(state);
+        
     }
-    removeChart(removeButton) {
+    removeChart(event) {
         console.log("removeChart");
         this.removeActiveButtons();
-        let removeButtons = Array.from(chartBlocksContainer.getElementsByClassName("remove-chart-btn"));
-        let index = removeButtons.findIndex(btn => btn === removeButton);
-        chartBlocksContainer.children[index].remove();
+        let chart = chartBlocksContainer.children[getChartBlockNum(event, chartBlocksContainer)];
+        chart.addEventListener('transitionend', event => {
+            setTimeout(() => event.target.remove(), 250);
+        }, {"once": true});
+        chart.style.transform = "scale(0)";
         state.chartsBlocks = state.chartsBlocks.filter(item => item !== this);
         createChartBlockBtn.style.display = "flex";
     }
 }
-function inputFunction() {
-    getFunction()
-}
-
-// chartButtons.addEventListener("pointerup", event => {
-//     if (event.target.closest(".remove-chart-btn")){
-//         console.log("remove");
-//     }
-// })
-
-// activeButtons.addEventListener("pointerup", event => {})
 
 createChartBlockBtn.addEventListener("pointerup", event => {
     if (state.chartsBlocks.length === 4) {
@@ -85,4 +93,48 @@ createChartBlockBtn.addEventListener("pointerup", event => {
     }
 })
 
+function inputData(chartBlock){
+    document.body.style.overflow = "hidden";
+    inputDataWrapper.classList.add("active");
+    inputDataWrapper.style.top = window.scrollY + "px";
+    let symbolTyped = false;
+    let removeKeyboard = inputFuncKeyboard.addEventListenerN("pointerup", event => {
+        if (event.target.matches(".input-function__keyboard > section > div")) {
+            if (!symbolTyped) {
+                inputFuncOutput.textContent = event.target.textContent;
+                inputFuncOutput.style.color = "black";
+                symbolTyped = true;
+            } else {
+                inputFuncOutput.textContent += event.target.textContent;
+            }
+        }
+    })
+    let disableInputFuncButtons = inputFuncButtons.addEventListenerN("pointerup", event => {
+        let canvas = chartBlock.getElementsByClassName("canvas")[0];
+        if (event.target.closest(".create-chart")) {
+            if (inputFuncOutput.style.color !== "transparent") {
+                canvas.textContent = inputFuncOutput.textContent;
+            }
+            closeDataInput([removeKeyboard, disableInputFuncButtons]);
+        } else if (event.target.closest(".remove-chart")){
+            canvas.textContent = String(Date.now()).slice(-3);
+            closeDataInput([removeKeyboard, disableInputFuncButtons]);
+            
+        } else if (event.target.closest(".cancel-changes")){
+            closeDataInput([removeKeyboard, disableInputFuncButtons]);
+        }
+    })
+    
+}
+
+function closeDataInput(functions){
+    inputFuncOutput.style.color = "transparent";
+    inputFuncOutput.textContent = "f(x)";
+    functions.forEach(func => func());
+    inputDataWrapper.classList.remove("active");
+    inputDataWrapper.addEventListener('transitionend', event => {
+        inputDataWrapper.style.top = "0px";
+    }, {"once": true});
+    document.body.style.overflow = "auto";
+}
 
