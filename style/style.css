@@ -70,6 +70,120 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
 }
 
+.input-function {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Cambria", math;
+}
+
+.input-function__output {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  width: 95%;
+  font-size: 30px;
+  background-color: #f1f2f3;
+}
+
+.input-function__keyboard {
+  width: 100%;
+  border: 3px solid blue;
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: row;
+  color: white;
+}
+.input-function__keyboard > div > section > div {
+  width: 100%;
+  background-color: #f1f2f3;
+  color: black;
+  box-shadow: inset 0 0 5px 1px rgba(0, 0, 0, 0.5);
+  font-size: 24px;
+  /*↑ На экране шириной 320 пикселей шрифт имеет размер 16 пикселей, 
+  а на экране шириной 1200 пикселей – размер 24 пикселя. */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyboard__functions {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.keyboard__functions > section:nth-of-type(1) {
+  display: grid;
+  grid-template: repeat(3, 33%)/repeat(3, 1fr);
+  margin-bottom: calc(3px + 17 * (100vh - 320px) / 880);
+  /*↑ На экране шириной 320 пикселей шрифт имеет размер 16 пикселей, 
+  а на экране шириной 1200 пикселей – размер 24 пикселя. */
+  height: 80%;
+}
+.keyboard__functions > section:nth-of-type(1) > div {
+  height: 100%;
+}
+.keyboard__functions > section:nth-of-type(2) {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  height: 15%;
+}
+.keyboard__functions > section:nth-of-type(2) > div {
+  width: 100%;
+  height: 100%;
+}
+
+.keyboard__other {
+  flex: 1 1 50%;
+  justify-content: space-evenly;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+.keyboard__other > section:nth-of-type(1) {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  height: 98%;
+}
+.keyboard__other > section:nth-of-type(1) > div {
+  height: 20%;
+}
+.keyboard__other > section:nth-of-type(2) {
+  display: grid;
+  grid-template: repeat(5, 20%)/repeat(3, 1fr);
+  width: 50%;
+  height: 98%;
+}
+.keyboard__other > section:nth-of-type(3) {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  height: 98%;
+}
+.keyboard__other > section:nth-of-type(3) > div {
+  height: 20%;
+}
+
+.input-function__buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  font-family: "Calibri", sans-serif;
+}
+
 html {
   height: -webkit-max-content;
   height: -moz-max-content;
@@ -97,13 +211,13 @@ body {
 .chart-blocks {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   justify-items: center;
   align-items: center;
 }
 
 .chart-block {
-  width: 100vw;
+  width: 48vw;
   height: 48vh;
   margin: 1vh 0;
   background-color: white;
@@ -182,20 +296,6 @@ body {
   transform: rotateZ(90deg);
 }
 
-@media (min-width: 992px) {
-  /* Стили CSS для ширины от 768px до 992px */
-  /* Устроства с маленьким экраном (планшеты) */
-  .chart-blocks {
-    grid-template-columns: 1fr 1fr;
-  }
-  .chart-block {
-    width: 48vw;
-  }
-}
-@media (max-width: 767px) {
-  /* Стили CSS для ширины до 768px */
-  /* Устройства с очень маленьким экраном (смартфоны) */
-}
 .input-data-wrapper {
   position: absolute;
   top: 0;
@@ -222,7 +322,7 @@ body {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  font-size: calc(16px + 12 * (100vw - 320px) / 880);
+  font-size: calc(20px + 8 * (100vw - 320px) / 880);
 }
 
 .input-data-block__options {
@@ -242,90 +342,6 @@ body {
 .input-data-block__input {
   width: 100%;
   flex: 1 1 auto;
-}
-
-.input-function {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.input-function__output {
-  display: block;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: 95%;
-  font-size: 30px;
-  background-color: #f1f2f3;
-  text-align: center;
-}
-
-.input-function__keyboard {
-  width: 100%;
-  border: 3px solid blue;
-  flex: 1 1 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  color: white;
-}
-.input-function__keyboard > section > div {
-  width: 100%;
-  background-color: #f1f2f3;
-  color: black;
-  text-align: center;
-  border: 1px solid #000;
-  font-size: 30px;
-}
-.input-function__keyboard > section:nth-of-type(1) {
-  display: flex;
-  flex-direction: column;
-  width: 8%;
-}
-.input-function__keyboard > section:nth-of-type(1) > div {
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-}
-.input-function__keyboard > section:nth-of-type(3) {
-  display: grid;
-  grid-template: repeat(4, -webkit-max-content)/repeat(5, 1fr);
-  grid-template: repeat(4, max-content)/repeat(5, 1fr);
-  width: 40%;
-}
-.input-function__keyboard > section:nth-of-type(2) {
-  display: flex;
-  flex-direction: column;
-  width: 12%;
-}
-.input-function__keyboard > section:nth-of-type(2) > div {
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-}
-.input-function__keyboard > section:nth-of-type(4) {
-  display: grid;
-  grid-template: repeat(4, -webkit-max-content)/repeat(3, 1fr);
-  grid-template: repeat(4, max-content)/repeat(3, 1fr);
-  width: 35%;
-}
-.input-function__keyboard > section:nth-of-type(4) > div {
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-}
-
-.input-function__buttons {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  color: white;
 }
 
 .create-chart {
@@ -352,6 +368,28 @@ body {
   border-radius: 10px;
 }
 
-.input-data {
+.input-markers {
   display: none;
+}
+
+@media (max-width: 992px) {
+  /* Стили CSS для ширины от 768px до 992px */
+  /* Устроства с маленьким экраном (планшеты) */
+}
+@media (max-width: 767px) {
+  /* Стили CSS для ширины до 768px */
+  /* Устройства с очень маленьким экраном (смартфоны) */
+  .input-function__keyboard {
+    flex-direction: column-reverse;
+  }
+  .chart-blocks {
+    grid-template-columns: 1fr;
+  }
+  .chart-block {
+    width: 100vw;
+  }
+}
+@media (max-width: 992px) {
+  /* Стили CSS для ширины до 768px */
+  /* Устройства с очень маленьким экраном (смартфоны) */
 }

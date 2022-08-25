@@ -1,10 +1,12 @@
 "use strict"
-
+// 931 * 407
 import getFunction from "./getFunction.js";
 import "./addEventListenerN and removeEventListenerN.js";
 import getChartBlockNum from "./getChartBlockNum.js";
+import inputFunction from "./inputFunction.js";
 
-
+// console.log(window.innerWidth);
+// console.log(window.innerHeight);
 // let wrapper = document.querySelector(".wrapper");
 let chartBlocksContainer = document.querySelector(".chart-blocks");
 
@@ -15,9 +17,9 @@ let chartBlocksContainer = document.querySelector(".chart-blocks");
 
 const inputDataWrapper = document.querySelector(".input-data-wrapper");
 
-let inputFuncKeyboard = document.getElementsByClassName("input-function__keyboard")[0];
-let inputFuncOutput = document.getElementsByClassName("input-function__output")[0];
-inputFuncOutput.style.color = "transparent";
+
+export let inputFuncOutput = document.getElementsByClassName("input-function__output")[0];
+// inputFuncOutput.style.color = "transparent";
 // inputDataBlock.style.display = "block";
 /*const createChartBtn = document.querySelector(".create-chart");
 const removeChartBtn = document.querySelector(".remove-chart");
@@ -49,7 +51,6 @@ let state = {
 
 class Chart {
     constructor() {
-        // this.func = inputData();
         let chartBlockElement = document.createElement("div");
         chartBlockElement.classList.add("chart-block");
         chartBlockElement.insertAdjacentHTML("beforeend", chartBlockHTML);
@@ -66,6 +67,7 @@ class Chart {
             }
         })
         chartBlockElement.querySelector(".canvas").textContent = String(Date.now()).slice(-3);
+        this.func = inputData(chartBlockElement);
         state.chartsBlocks.push(this);
         // console.log(state);
         
@@ -87,54 +89,49 @@ createChartBlockBtn.addEventListener("pointerup", event => {
     if (state.chartsBlocks.length === 4) {
         return;
     }
-    new Chart();
-    if (state.chartsBlocks.length === 4) {
+    if (state.chartsBlocks.length === 3) {
         createChartBlockBtn.style.display = "none";
+        
     }
+    new Chart();
+    
 })
 
 function inputData(chartBlock){
-    document.body.style.overflow = "hidden";
-    inputDataWrapper.classList.add("active");
+    // document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = window.innerWidth - document.documentElement.clientWidth + "px";
+    // ↑ ↓ !!!!!!!!!!!!!
+    console.log("Ширина полосы прокрутки: " + document.body.style.paddingRight);
     inputDataWrapper.style.top = window.scrollY + "px";
-    let symbolTyped = false;
-    let removeKeyboard = inputFuncKeyboard.addEventListenerN("pointerup", event => {
-        if (event.target.matches(".input-function__keyboard > section > div")) {
-            if (!symbolTyped) {
-                inputFuncOutput.textContent = event.target.textContent;
-                inputFuncOutput.style.color = "black";
-                symbolTyped = true;
-            } else {
-                inputFuncOutput.textContent += event.target.textContent;
-            }
-        }
-    })
+    inputDataWrapper.classList.add("active");
+    // let symbolTyped = false;
+    
+    let removeKeyboard = inputFunction(inputFuncOutput.getElementsByClassName("output__text")[0]);
     let disableInputFuncButtons = inputFuncButtons.addEventListenerN("pointerup", event => {
         let canvas = chartBlock.getElementsByClassName("canvas")[0];
         if (event.target.closest(".create-chart")) {
-            if (inputFuncOutput.style.color !== "transparent") {
-                canvas.textContent = inputFuncOutput.textContent;
-            }
-            closeDataInput([removeKeyboard, disableInputFuncButtons]);
+            canvas.textContent = inputFuncOutput.textContent;
+            closeDataInput(removeKeyboard, disableInputFuncButtons);
         } else if (event.target.closest(".remove-chart")){
             canvas.textContent = String(Date.now()).slice(-3);
-            closeDataInput([removeKeyboard, disableInputFuncButtons]);
+            closeDataInput(removeKeyboard, disableInputFuncButtons);
             
         } else if (event.target.closest(".cancel-changes")){
-            closeDataInput([removeKeyboard, disableInputFuncButtons]);
+            closeDataInput(removeKeyboard, disableInputFuncButtons);
         }
     })
     
 }
 
-function closeDataInput(functions){
+function closeDataInput(...functions){
     inputFuncOutput.style.color = "transparent";
-    inputFuncOutput.textContent = "f(x)";
+    inputFuncOutput.lastElementChild.textContent = "";
     functions.forEach(func => func());
     inputDataWrapper.classList.remove("active");
     inputDataWrapper.addEventListener('transitionend', event => {
         inputDataWrapper.style.top = "0px";
     }, {"once": true});
     document.body.style.overflow = "auto";
+    document.body.style.paddingRight = "0px";// !!!!!!!!!!!!!
 }
 

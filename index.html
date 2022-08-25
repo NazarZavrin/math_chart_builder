@@ -20,29 +20,43 @@
             <div class="input-data-block">
                 <div class="input-data-block__options">
                     <div>Ввести функцию</div>
-                    <div>Ввести данные</div>
+                    <div>Ввести маркеры</div>
                 </div>
                 <div class="input-data-block__input">
                     <div class="input-function">
-                        <div class="input-function__output">f(x)</div>
+                        <div class="input-function__output">
+                            <div>y=</div><div class="output__text"></div>
+                        </div>
                         <div class="input-function__keyboard">
-                            <section>
-                                <div>y</div><div>z</div><div>β</div><div>γ</div>
-                            </section>
-                            <section>
-                                <div>(</div><div>)</div><div>|f|</div>
-                            </section>
-                            <section>
-                                <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
-                                <div>6</div><div>7</div><div>8</div><div>9</div><div>0</div>
-                                <div>+</div><div>-</div><div>×</div><div>÷</div><div>.</div>
-                                <div>x</div><div>π</div><div>𝑒</div><div>α</div><div>=</div>
-                            </section>
-                            <section>
-                                <div>f²</div><div>f³</div><div>fⁿ</div>
-                                <div>√f</div><div>∛f</div><div>ⁿ√f</div>
-                                <div>sin</div><div>cos</div><div>tg</div><div>ctg</div>
-                            </section>
+                            <div class="keyboard__functions">
+                                <section>
+                                    <div>𝑓²</div><div>𝑓³</div><div class="nth-power">𝑓𝆑</div>
+                                    <div>√𝑓</div><div>∛𝑓</div><div class="nth-root">𝆑√𝑓</div>
+                                    <div>ln(𝑓)</div><div>lg(𝑓)</div><div>log𝑓(𝑓)</div>
+                                </section>
+                                <section>
+                                    <div>sin</div><div>cos</div><div>tg</div><div>ctg</div>
+                                </section>
+                            </div>
+                            <div class="keyboard__other">
+                                <section>
+                                    <div>x</div><div>π</div><div>𝑒</div><div>(</div><div>)</div>
+                                </section>
+                                <section>
+                                    <div>⟶</div><div>⟵</div><div>⌦</div>
+                                    <div>1</div><div>2</div><div>3</div>
+                                    <div>4</div><div>5</div><div>6</div>
+                                    <div>7</div><div>8</div><div>9</div>
+                                    <div>0</div><div>.</div><div>⌫</div>
+                                </section>
+                                <section>
+                                    <div>+</div><div>-</div><div>×</div><div>÷</div><div>|𝑓|</div>
+                                </section>
+                                
+                            </div>
+                            
+                            
+                            
                         </div>
                         <div class="input-function__buttons">
                             <div class="create-chart">Нарисовать график</div>
@@ -50,8 +64,9 @@
                             <div class="cancel-changes">Отмена</div>
                         </div>
                     </div>
+                    <div class="input-markers"></div>
                 </div>
-                <div class="input-data"></div>
+                
             </div>
         </div>
         
